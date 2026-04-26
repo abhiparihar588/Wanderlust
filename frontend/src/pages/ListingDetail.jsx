@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { fetchWithAuth } from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 import { MapPin, Edit, Trash2 } from 'lucide-react';
+import { getOptimizedImageUrl } from '../utils/imageOptimization';
 import './ListingDetail.css';
 
 export default function ListingDetail() {
@@ -55,7 +56,11 @@ export default function ListingDetail() {
       </div>
 
       <div className="detail-image glass">
-        <img src={listing.image?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"} alt={listing.title} />
+        <img 
+          src={getOptimizedImageUrl(listing.image?.url, 1200) || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200"} 
+          alt={listing.title} 
+          fetchpriority="high"
+        />
       </div>
 
       <div className="detail-content glass">

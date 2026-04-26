@@ -4,7 +4,7 @@ const ExpressError = require("../utils/ExpressError");
 
 // INDEX ROUTE
 module.exports.index = wrapAsync(async (req, res) => {
-  const allList = await Listing.find({});
+  const allList = await Listing.find({}).select("-description -reviews");
   res.status(200).json({ listings: allList });
 });
 

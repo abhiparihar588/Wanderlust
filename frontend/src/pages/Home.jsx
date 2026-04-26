@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchWithAuth } from '../utils/api';
 import { MapPin } from 'lucide-react';
+import { getOptimizedImageUrl } from '../utils/imageOptimization';
 import './Home.css';
 
 export default function Home() {
@@ -35,7 +36,11 @@ export default function Home() {
         {listings.map(listing => (
           <Link to={`/listing/${listing._id}`} key={listing._id} className="listing-card glass">
             <div className="listing-image">
-              <img src={listing.image?.url || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"} alt={listing.title} />
+              <img 
+                src={getOptimizedImageUrl(listing.image?.url) || "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=800"} 
+                alt={listing.title} 
+                loading="lazy"
+              />
             </div>
             <div className="listing-details">
               <h3>{listing.title}</h3>
